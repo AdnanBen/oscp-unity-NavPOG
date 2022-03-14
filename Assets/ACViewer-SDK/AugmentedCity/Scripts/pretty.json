@@ -1,0 +1,140 @@
+{
+"geopose": {
+"id": "string",
+"timestamp": 0,
+"accuracy": {
+"position": 0,
+"orientation": 0
+},
+"type": "string",
+"pose": {
+"longitude": 0,
+"latitude": 0,
+"ellipsoidHeight": 0,
+"quaternion": {
+"w": 1,
+"x": 0,
+"y": 0,
+"z": 0
+}
+},
+"geopose": {
+"longitude": 0,
+"latitude": 0,
+"ellipsoidHeight": 0,
+"quaternion": {
+"w": 1,
+"x": 0,
+"y": 0,
+"z": 0
+}
+},
+"ecefPose": {
+"position": {
+"x": 0,
+"y": 0,
+"z": 0
+},
+"orientation": {
+"w": 1,
+"x": 0,
+"y": 0,
+"z": 0
+}
+},
+"localPose": {
+"position": {
+"x": 0,
+"y": 0,
+"z": 0
+},
+"orientation": {
+"w": 1,
+"x": 0,
+"y": 0,
+"z": 0
+}
+},
+"reconstruction_id": 390
+},
+"scrs": [
+{
+"id": "string",
+"type": "string",
+"content": {
+"id": "string",
+"type": "string",
+"title": "string",
+"description": "string",
+"keywords": [
+"string"
+],
+"placekey": [
+"string"
+],
+"refs": [
+{
+"contentType": "string",
+"url": "http://example.com"
+}
+],
+"geopose": {
+"longitude": 0,
+"latitude": 0,
+"ellipsoidHeight": 0,
+"quaternion": {
+"w": 1,
+"x": 0,
+"y": 0,
+"z": 0
+}
+},
+"ecefPose": {
+"position": {
+"x": 0,
+"y": 0,
+"z": 0
+},
+"orientation": {
+"w": 1,
+"x": 0,
+"y": 0,
+"z": 0
+}
+},
+"localPose": {
+"position": {
+"x": 0,
+"y": 0,
+"z": 0
+},
+"orientation": {
+"w": 1,
+"x": 0,
+"y": 0,
+"z": 0
+}
+},
+"reconstructionId": 390,
+"size": 0,
+"bbox": "string",
+"custom_data": {
+"sticker_id": 1290,
+"type": "3D",
+"sticker_text": "string",
+"path": "string",
+"description": "string",
+"property1": "string",
+"property2": "string",
+"subtype": "OBJECT",
+"model_id": "string",
+"model_scale": "0.5",
+"grounded": "0",
+"vertically_aligned": "0"
+}
+},
+"tenant": "string",
+"timestamp": 0
+}
+]
+}
