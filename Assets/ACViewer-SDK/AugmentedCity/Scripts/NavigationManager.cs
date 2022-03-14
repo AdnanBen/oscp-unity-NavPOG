@@ -32,13 +32,21 @@ public class NavigationManager : MonoBehaviour
     public Sprite locationElement;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-
+        Debug.Log("Navigation manager started");
         Input.location.Start();
         //StartCoroutine(getNearPlaceholders("51.531940", "-0.050740", "1000"));
         StartCoroutine(getNearPlaceholders(Input.location.lastData.latitude.ToString(), Input.location.lastData.longitude.ToString(), "100"));
 
+    }
+
+    void OnDisable()
+    {
+        foreach(GameObject parent in parents)
+        {
+            Destroy(parent);
+        }
     }
 
     // Update is called once per frame
@@ -55,13 +63,11 @@ public class NavigationManager : MonoBehaviour
 
         // background image for elements
         Image bg = locationBg.AddComponent<Image>();
-        bg.sprite = locationElement;
-        bg.color = new Color32(227, 196, 255, 255);
 
         // size location elements appropriately
         RectTransform rect = locationBg.GetComponent<RectTransform>();
         rect.localScale = new Vector3(1f, 1f, 1f);
-        rect.sizeDelta = new Vector2(91, 30);
+        rect.sizeDelta = new Vector2(91, 20);
 
         // text elements as children of bg
         GameObject location = new GameObject();
@@ -73,10 +79,9 @@ public class NavigationManager : MonoBehaviour
         locationText.font = font;
         locationText.color = Color.black;
         locationText.rectTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        locationText.rectTransform.localPosition = new Vector3(-14f, 4f, 0f);
+        locationText.rectTransform.localPosition = new Vector3(-14f, 0f, 0f);
         locationText.rectTransform.sizeDelta = new Vector2(100f, 30f);
         locationText.fontSize = 22;
-        //locationText.fontStyle = FontStyle.Bold;
         locationText.horizontalOverflow = HorizontalWrapMode.Overflow;
 
         texts.Add(location);
