@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Linq;
 
 public class SearchManager : MonoBehaviour
 {
@@ -11,13 +13,13 @@ public class SearchManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void ReadInput(string str)
@@ -26,18 +28,45 @@ public class SearchManager : MonoBehaviour
         input = str;
         Debug.Log(input);
 
-        for(int i = 0; i < navScript.parents.Count; i++)
+        for (int i = 0; i < navScript.parents.Count; i++)
         {
-            string s = navScript.texts[i].GetComponent<Text>().text;
-            if(s.StartsWith(input))
+            string s = navScript.texts[i].GetComponent<Text>().text.ToLower();
+            string[] words = s.Split(' ');
+
+            LinkedList<string> finWords = new LinkedList<string>(words);
+            
+            //string[] finWords = new string[words.Length];
+            for (int j = 0; j < words.Length; j++)
             {
-                // show parent element
-                navScript.parents[i].SetActive(true);
+                LinkedList<string> finWords2 = new LinkedList<string>(finWords);
+                //finWords.AddLast(s);
+                for(int k = 0; k < j; k++)
+                {
+                    finWords2.RemoveFirst();
+                }
+                words[j] = string.Join(" ", finWords2.ToArray());
             }
-            else
+
+            /*for (int j = 0; j < words.Length; j++)
             {
-                // hide parent element
-                navScript.parents[i].SetActive(false);
+                finWords
+            }*/
+
+            
+
+            foreach (string word in words)
+            {
+                if (word.StartsWith(input))
+                {
+                    // show parent element
+                    navScript.parents[i].SetActive(true);
+                    break;
+                }
+                else
+                {
+                    // hide parent element
+                    navScript.parents[i].SetActive(false);
+                }
             }
         }
     }

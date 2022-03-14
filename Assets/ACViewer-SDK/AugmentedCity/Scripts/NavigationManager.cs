@@ -36,8 +36,8 @@ public class NavigationManager : MonoBehaviour
     {
         Debug.Log("Navigation manager started");
         Input.location.Start();
-        //StartCoroutine(getNearPlaceholders("51.531940", "-0.050740", "1000"));
-        StartCoroutine(getNearPlaceholders(Input.location.lastData.latitude.ToString(), Input.location.lastData.longitude.ToString(), "100"));
+        StartCoroutine(getNearPlaceholders("51.531940", "-0.050740", "10000"));
+        //StartCoroutine(getNearPlaceholders(Input.location.lastData.latitude.ToString(), Input.location.lastData.longitude.ToString(), "100"));
 
     }
 
