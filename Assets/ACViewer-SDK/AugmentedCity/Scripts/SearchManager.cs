@@ -33,38 +33,26 @@ public class SearchManager : MonoBehaviour
             string s = navScript.texts[i].GetComponent<Text>().text.ToLower();
             string[] words = s.Split(' ');
 
-            LinkedList<string> finWords = new LinkedList<string>(words);
-            
-            //string[] finWords = new string[words.Length];
+            LinkedList<string> wordsLL = new LinkedList<string>(words);
             for (int j = 0; j < words.Length; j++)
             {
-                LinkedList<string> finWords2 = new LinkedList<string>(finWords);
-                //finWords.AddLast(s);
+                LinkedList<string> wordsCopy = new LinkedList<string>(wordsLL);
                 for(int k = 0; k < j; k++)
                 {
-                    finWords2.RemoveFirst();
+                    wordsCopy.RemoveFirst();
                 }
-                words[j] = string.Join(" ", finWords2.ToArray());
+                words[j] = string.Join(" ", wordsCopy.ToArray());
             }
-
-            /*for (int j = 0; j < words.Length; j++)
-            {
-                finWords
-            }*/
-
-            
 
             foreach (string word in words)
             {
                 if (word.StartsWith(input))
                 {
-                    // show parent element
                     navScript.parents[i].SetActive(true);
                     break;
                 }
                 else
                 {
-                    // hide parent element
                     navScript.parents[i].SetActive(false);
                 }
             }
