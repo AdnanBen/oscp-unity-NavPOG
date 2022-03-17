@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 
 public class SearchManager : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class SearchManager : MonoBehaviour
 
         for (int i = 0; i < navScript.parents.Count; i++)
         {
-            string s = navScript.texts[i].GetComponent<Text>().text.ToLower();
+            string s = navScript.texts[i].GetComponent<TextMeshProUGUI>().text.ToLower();
             string[] words = s.Split(' ');
 
             LinkedList<string> wordsLL = new LinkedList<string>(words);

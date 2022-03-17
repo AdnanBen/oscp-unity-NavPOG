@@ -7,6 +7,7 @@ using UnityEngine.Networking;
 using System.Text;
 using System;
 using System.Linq;
+using TMPro;
 
 public class locationEntry
 {
@@ -29,17 +30,25 @@ public class NavigationManager : MonoBehaviour
 {
     public List<GameObject> texts = new List<GameObject>();
     public List<GameObject> parents = new List<GameObject>();
+    public List<locationEntry> locationEntries = new List<locationEntry>();
     public GameObject content;
-    public Font font;
     public Sprite locationElement;
+    public locationEntry destination;
+    public GameObject navigationPanel;
+    public GameObject arrowObject;
 
     // Start is called before the first frame update
+    void Start()
+    {
+        Input.location.Start();
+    }
+
     void OnEnable()
     {
         Debug.Log("Navigation manager started");
         Input.location.Start();
-        StartCoroutine(getNearPlaceholders("51.531940", "-0.050740", "10000"));
-        //StartCoroutine(getNearPlaceholders(Input.location.lastData.latitude.ToString(), Input.location.lastData.longitude.ToString(), "100"));
+        //StartCoroutine(getNearPlaceholders("51.531940", "-0.050740", "10000"));
+        StartCoroutine(getNearPlaceholders(Input.location.lastData.latitude.ToString(), Input.location.lastData.longitude.ToString(), "10000"));
 
     }
 
@@ -49,12 +58,32 @@ public class NavigationManager : MonoBehaviour
         {
             Destroy(parent);
         }
+        parents = new List<GameObject>();
+        texts = new List<GameObject>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+    }
 
+    public void ReadInput(string input)
+    {
+        int radius;
+        if (int.TryParse(input, out radius))
+        {
+            foreach (GameObject parent in parents)
+            {
+                Destroy(parent);
+            }
+            parents = new List<GameObject>();
+            texts = new List<GameObject>();
+
+            Input.location.Start();
+            //StartCoroutine(getNearPlaceholders("51.531940", "-0.050740", input));
+            StartCoroutine(getNearPlaceholders(Input.location.lastData.latitude.ToString(), Input.location.lastData.longitude.ToString(), input));
+        }
     }
 
     decimal[] CalculateDistanceBetweenCoords(float lat1, float lon1, float lat2, float lon2)
@@ -91,6 +120,10 @@ public class NavigationManager : MonoBehaviour
         // background image for elements
         Image bg = locationBg.AddComponent<Image>();
 
+        Shadow shadow = locationBg.AddComponent<Shadow>();
+        shadow.effectDistance = new Vector2(-1f, -1f);
+        shadow.effectColor = new Color32(0xC6, 0xC6, 0xC6, 0xFF);
+
         // size location elements appropriately
         RectTransform rect = locationBg.GetComponent<RectTransform>();
         rect.localScale = new Vector3(1f, 1f, 1f);
@@ -101,22 +134,42 @@ public class NavigationManager : MonoBehaviour
         location.transform.parent = locationBg.transform;
 
         // text styling
-        Text locationText = location.AddComponent<Text>();
-        locationText.text = title;
-        locationText.font = font;
+        TextMeshProUGUI locationText = location.AddComponent<TextMeshProUGUI>();
+        locationText.text = char.ToUpper(title[0]) + title.Substring(1).ToLower();
         locationText.color = Color.black;
-        locationText.rectTransform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        locationText.rectTransform.localPosition = new Vector3(-14f, -2f, 0f);
-        locationText.rectTransform.sizeDelta = new Vector2(100f, 30f);
-        locationText.fontSize = 18;
-        locationText.horizontalOverflow = HorizontalWrapMode.Overflow;
+        locationText.rectTransform.localScale = new Vector3(1f, 1f, 1f);
+        locationText.rectTransform.localPosition = new Vector3(0f, 0f, 0f);
+        locationText.rectTransform.sizeDelta = new Vector2(80f, 10f);
+        locationText.fontSize = 10;
+        locationText.enableWordWrapping = true;
+        locationText.enableAutoSizing = true;
+        locationText.fontSizeMin = 0;
+        locationText.alignment = TextAlignmentOptions.BottomLeft;
+
+        location.AddComponent<LocationData>();
+        LocationData dataScript = location.GetComponent<LocationData>();
+        dataScript.latitude = latitude;
+        dataScript.longitude = longitude;
+
+        location.AddComponent<Button>();
+        location.GetComponent<Button>().onClick.AddListener(() => OnLocationClick(dataScript.latitude, dataScript.longitude));
 
         texts.Add(location);
         parents.Add(locationBg);
     }
 
+    void OnLocationClick(float latitude, float longitude)
+    {
+        navigationPanel.SetActive(false);
+        arrow arrowScript = arrowObject.GetComponent<arrow>();
+        arrowScript.latitude = latitude;
+        arrowScript.longitude = longitude;
+        arrowScript.gameObject.SetActive(true);
+    }
+
     IEnumerator getNearPlaceholders(string latitude, string longitude, string radius)
     {
+        locationEntries = new List<locationEntry>();
 
         string apiURL = "https://developer.augmented.city/rpc/get_near_placeholders?p_latitude=" + latitude + "&p_longitude=" + longitude + "&p_radius=" + radius;
 
@@ -135,8 +188,6 @@ public class NavigationManager : MonoBehaviour
         JSONNode info = JSON.Parse(req.downloadHandler.text);
 
         locationEntry[] placeholder_ids = new locationEntry[info.Count];
-
-        List<locationEntry> locationEntries = new List<locationEntry>();
 
         List<string> placeholder_ids_array = new List<string>();
 
@@ -179,8 +230,8 @@ public class NavigationManager : MonoBehaviour
             locationEntries[i].name = info[i]["sticker"]["sticker_text"];
         }
 
-        var locationDistancePairs = new List<(string, decimal)>();
-        var locationDistancePairs2 = new List<(string, decimal)>();
+        var locationDistancePairs = new List<(string, decimal, locationEntry)>();
+        var locationDistancePairs2 = new List<(string, decimal, locationEntry)>();
 
         foreach (locationEntry entry in locationEntries)
         {
@@ -194,11 +245,11 @@ public class NavigationManager : MonoBehaviour
             if (distanceArray[1] == 0)
             {
                 printString = entry.name + " " + distance.ToString() + "km";
-                locationDistancePairs2.Add((printString, distance));
+                locationDistancePairs2.Add((printString, distance, entry));
                 continue;
             }
 
-            locationDistancePairs.Add((printString, distance));
+            locationDistancePairs.Add((printString, distance, entry));
 
             //add(printString, 2.1f, 5.6f);
         }
@@ -209,19 +260,18 @@ public class NavigationManager : MonoBehaviour
         foreach (var item in locationDistancePairs)
         {
             string name = item.Item1;
-            add(name, 2.1f, 5.6f);
+            add(name, float.Parse(item.Item3.latitude), float.Parse(item.Item3.longitude));
         }
 
         foreach (var item in locationDistancePairs2)
         {
             string name = item.Item1;
-            add(name, 2.1f, 5.6f);
+            add(name, float.Parse(item.Item3.latitude), float.Parse(item.Item3.longitude));
         } 
     }
 }
 
 /* TODO:
- * dynamic resizing of text labels
  * make distances stick to right side
  * navigation logic
  * investigate search bug
