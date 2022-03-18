@@ -13,6 +13,8 @@ public class StickerController : MonoBehaviour
     public RectTransform markerRt;
     public Text sText;
     public Text subType;
+    // public Text sDepartments;
+    // private Text testText;
     Transform target;
     string url;
     UIManager uim;
@@ -91,8 +93,14 @@ public class StickerController : MonoBehaviour
 
     public void setStickerInfo(ACityAPIDev.StickerInfo sInfo)
     {
+        Debug.Log("departments " + sInfo.sDepartments);
+
+
         if (sInfo.sText.Length > 40) sText.text = sInfo.sText.Substring(0, 30); else sText.text = sInfo.sText;
         if (sInfo.sSubType.Length > 40) subType.text = sInfo.sSubType.Substring(0, 30); else subType.text = sInfo.sSubType;
+        // if (sInfo.sDepartments.Length > 40) sDepartments.text = sInfo.sDepartments.Substring(0, 30); else sDepartments.text = sInfo.sDepartments;
+        // string test = sInfo.sDepartments;
+
         rtt = sText.gameObject.GetComponent<RectTransform>();
         marker = markerRt.gameObject;
         StartCoroutine(setScale());

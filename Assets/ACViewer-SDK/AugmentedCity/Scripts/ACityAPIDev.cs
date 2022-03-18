@@ -92,6 +92,9 @@ public class ACityAPIDev : MonoBehaviour
         public bool   vertical;
         public string type;
         public string subType;
+
+
+        public string sDepartments;
     }
 
     public class EcefPose
@@ -403,6 +406,9 @@ public class ACityAPIDev : MonoBehaviour
                                 {
                                     stickers[j].sPath             = "" + jsonParse["objects"][x]["sticker"]["path"];
                                     stickers[j].sText             = "" + jsonParse["objects"][x]["sticker"]["sticker_text"];
+                                    
+                                    stickers[j].sDepartments      = "" + jsonParse["objects"][x]["sticker"]["departments"];
+
                                     stickers[j].sType             = "" + jsonParse["objects"][x]["sticker"]["sticker_type"];
                                     stickers[j].sSubType          = "" + jsonParse["objects"][x]["sticker"]["sticker_subtype"];
                                     stickers[j].sDescription      = "" + jsonParse["objects"][x]["sticker"]["description"];
@@ -410,7 +416,10 @@ public class ACityAPIDev : MonoBehaviour
                                     stickers[j].sId               = "" + jsonParse["objects"][x]["sticker"]["sticker_id"];
                                     stickers[j].objectId          = "" + jsonParse["objects"][x]["placeholder"]["placeholder_id"];
                                     stickers[j].sImage            = "" + jsonParse["objects"][x]["sticker"]["Image"];
-                                    stickers[j].sAddress          = "" + jsonParse["objects"][x]["sticker"]["Address"];
+                                    // stickers[j].sAddress          = "" + jsonParse["objects"][x]["sticker"]["Address"];
+                                    stickers[j].sAddress          =  "ADDRESS AT THIS ADDRESS";
+
+
                                     stickers[j].sFeedbackAmount   = "" + jsonParse["objects"][x]["sticker"]["Feedback amount"];
                                     stickers[j].sRating           = "" + jsonParse["objects"][x]["sticker"]["Rating"];
                                     stickers[j].sUrl_ta           = "" + jsonParse["objects"][x]["sticker"]["url_ta"];
@@ -438,6 +447,8 @@ public class ACityAPIDev : MonoBehaviour
                                     currentRi.stickerArray[j].sPath             = stickers[j].sPath;
                                     currentRi.stickerArray[j].sText             = stickers[j].sText;
                                     currentRi.stickerArray[j].sType             = stickers[j].sType;
+                                    currentRi.stickerArray[j].sDepartments      = stickers[j].sDepartments;
+
                                     currentRi.stickerArray[j].sSubType          = stickers[j].sSubType;
                                     currentRi.stickerArray[j].sDescription      = stickers[j].sDescription;
                                     currentRi.stickerArray[j].SModel_scale      = stickers[j].SModel_scale;

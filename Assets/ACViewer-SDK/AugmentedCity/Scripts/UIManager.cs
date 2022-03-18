@@ -33,6 +33,8 @@ public class UIManager : MonoBehaviour
     public GameObject stickerPanel;
     public Text stickerText;
     public Text stickerType;
+    public Text stickerDepartments;
+
     int gloc, bloc;
 
     ACityAPIDev.StickerInfo stickerInfoForPanel;
@@ -137,6 +139,8 @@ public class UIManager : MonoBehaviour
             stickerPanel.SetActive(true);
             stickerText.text = sInfo.sText;
             stickerType.text = sInfo.sType;
+            stickerDepartments.text = sInfo.sDepartments;
+
             if (stickerDeActivate != null)
             {
                 stickerDeActivate(false);
