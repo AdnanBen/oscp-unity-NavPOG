@@ -41,6 +41,7 @@ public class GetPlaceHoldersDev : MonoBehaviour
     float timerRelocation;
     float animationTime = 2f;
     UIManager uim;
+    LoginManager lm;
     GameObject activeReco, modelToServer;
 
     bool ARStarted, relocationCompleted, toShowPlaceHolders, videoDemosTurn, toShowStickers;
@@ -56,6 +57,7 @@ public class GetPlaceHoldersDev : MonoBehaviour
         relocationCompleted = true;
         toShowStickers = true;
         uim = this.GetComponent<UIManager>();
+        lm = this.GetComponent<LoginManager>();
         acapi.prepareSession(preparationCheck); //FixMe: in aco3d it's off
     }
 
@@ -184,7 +186,11 @@ public class GetPlaceHoldersDev : MonoBehaviour
                         vp.transform.localScale = (vp.transform.localScale * Vector3.Magnitude(stickers[j].positions[0] - stickers[j].positions[1]));
                         videoDemos.Add(vp);
 
-                        if (stickers[j] != null)                        // if the sticker object is not failed
+                        string stickerUserIDData = stickers[j].permittedUserIDs;
+                        string inputUserID = lm.userIDInput;
+                        string[] userIDs = stickerUserIDData.Split(',');
+
+                        if (stickers[j] != null && !(System.Array.IndexOf(userIDs,inputUserID) == -1 && userIDs[0] != "ALL"))                        // if the sticker object is not failed
                         {
                             bool isVideoSticker =
                                 stickers[j].sPath != null &&

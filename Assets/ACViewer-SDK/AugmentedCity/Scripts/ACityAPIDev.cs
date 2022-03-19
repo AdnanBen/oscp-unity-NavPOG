@@ -97,6 +97,7 @@ public class ACityAPIDev : MonoBehaviour
         public string sDepartments;
         public string sInformation;
         public string sPanelAddress;
+        public string permittedUserIDs;
 
     }
 
@@ -413,6 +414,8 @@ public class ACityAPIDev : MonoBehaviour
                                     stickers[j].sDepartments      = "" + jsonParse["objects"][x]["sticker"]["departments"];
                                     stickers[j].sInformation      = "" + jsonParse["objects"][x]["sticker"]["information"];
                                     stickers[j].sPanelAddress      = "" + jsonParse["objects"][x]["sticker"]["address"];
+                                    stickers[j].permittedUserIDs      = "" + jsonParse["objects"][x]["sticker"]["permittedUsers"];
+
 
 
 
@@ -456,6 +459,8 @@ public class ACityAPIDev : MonoBehaviour
                                     currentRi.stickerArray[j].sDepartments      = stickers[j].sDepartments;
                                     currentRi.stickerArray[j].sInformation      = stickers[j].sInformation;
                                     currentRi.stickerArray[j].sPanelAddress      = stickers[j].sPanelAddress;
+                                    currentRi.stickerArray[j].permittedUserIDs      = stickers[j].permittedUserIDs;
+
 
 
 
@@ -516,6 +521,8 @@ public class ACityAPIDev : MonoBehaviour
                         stickers[j].sDepartments        = currentRi.stickerArray[j].sDepartments;
                         stickers[j].sInformation        = currentRi.stickerArray[j].sInformation;
                         stickers[j].sPanelAddress        = currentRi.stickerArray[j].sPanelAddress;
+                        stickers[j].permittedUserIDs        = currentRi.stickerArray[j].permittedUserIDs;
+
 
                         stickers[j].sSubType     = currentRi.stickerArray[j].sSubType;
                         stickers[j].sDescription = currentRi.stickerArray[j].sDescription;
@@ -784,6 +791,8 @@ public class ACityAPIDev : MonoBehaviour
                             stickers[j].sDepartments              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["departments"];
                             stickers[j].sInformation              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["information"];
                             stickers[j].sPanelAddress              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["address"];
+                            stickers[j].permittedUserIDs              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["permittedUsers"];
+
 
                             stickers[j].sSubType           = "" + jsonParse["scrs"][j]["content"]["custom_data"]["sticker_subtype"];
                             stickers[j].sDescription       = "" + jsonParse["scrs"][j]["content"]["custom_data"]["description"];
@@ -837,6 +846,8 @@ public class ACityAPIDev : MonoBehaviour
                             currentRi.stickerArray[j].sDepartments        = stickers[j].sDepartments;
                             currentRi.stickerArray[j].sInformation        = stickers[j].sInformation;
                             currentRi.stickerArray[j].sPanelAddress        = stickers[j].sPanelAddress;
+                            currentRi.stickerArray[j].permittedUserIDs        = stickers[j].permittedUserIDs;
+
 
                         }
                         recoList.Add(currentRi);
@@ -879,6 +890,8 @@ public class ACityAPIDev : MonoBehaviour
                         stickers[j].sDepartments       = currentRi.stickerArray[j].sDepartments;
                         stickers[j].sInformation       = currentRi.stickerArray[j].sInformation;
                         stickers[j].sPanelAddress       = currentRi.stickerArray[j].sPanelAddress;
+                        stickers[j].permittedUserIDs       = currentRi.stickerArray[j].permittedUserIDs;
+
 
 
                         currentRi.stickerArray[j].sAddress = stickers[j].sAddress;
