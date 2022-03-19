@@ -34,6 +34,8 @@ public class UIManager : MonoBehaviour
     public Text stickerText;
     public Text stickerType;
     public Text stickerDepartments;
+    public Text stickerInformation;
+    public Text stickerPanelAddress;
 
     int gloc, bloc;
 
@@ -140,6 +142,8 @@ public class UIManager : MonoBehaviour
             stickerText.text = sInfo.sText;
             stickerType.text = sInfo.sType;
             stickerDepartments.text = sInfo.sDepartments;
+            stickerPanelAddress.text = sInfo.sPanelAddress;
+
 
             if (stickerDeActivate != null)
             {

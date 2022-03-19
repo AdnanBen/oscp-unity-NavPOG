@@ -95,6 +95,9 @@ public class ACityAPIDev : MonoBehaviour
 
 
         public string sDepartments;
+        public string sInformation;
+        public string sPanelAddress;
+
     }
 
     public class EcefPose
@@ -408,6 +411,10 @@ public class ACityAPIDev : MonoBehaviour
                                     stickers[j].sText             = "" + jsonParse["objects"][x]["sticker"]["sticker_text"];
                                     
                                     stickers[j].sDepartments      = "" + jsonParse["objects"][x]["sticker"]["departments"];
+                                    stickers[j].sInformation      = "" + jsonParse["objects"][x]["sticker"]["information"];
+                                    stickers[j].sPanelAddress      = "" + jsonParse["objects"][x]["sticker"]["address"];
+
+
 
                                     stickers[j].sType             = "" + jsonParse["objects"][x]["sticker"]["sticker_type"];
                                     stickers[j].sSubType          = "" + jsonParse["objects"][x]["sticker"]["sticker_subtype"];
@@ -416,9 +423,8 @@ public class ACityAPIDev : MonoBehaviour
                                     stickers[j].sId               = "" + jsonParse["objects"][x]["sticker"]["sticker_id"];
                                     stickers[j].objectId          = "" + jsonParse["objects"][x]["placeholder"]["placeholder_id"];
                                     stickers[j].sImage            = "" + jsonParse["objects"][x]["sticker"]["Image"];
-                                    // stickers[j].sAddress          = "" + jsonParse["objects"][x]["sticker"]["Address"];
-                                    stickers[j].sAddress          =  "ADDRESS AT THIS ADDRESS";
-
+                                    stickers[j].sAddress          = "" + jsonParse["objects"][x]["sticker"]["Address"];
+                                    
 
                                     stickers[j].sFeedbackAmount   = "" + jsonParse["objects"][x]["sticker"]["Feedback amount"];
                                     stickers[j].sRating           = "" + jsonParse["objects"][x]["sticker"]["Rating"];
@@ -448,6 +454,10 @@ public class ACityAPIDev : MonoBehaviour
                                     currentRi.stickerArray[j].sText             = stickers[j].sText;
                                     currentRi.stickerArray[j].sType             = stickers[j].sType;
                                     currentRi.stickerArray[j].sDepartments      = stickers[j].sDepartments;
+                                    currentRi.stickerArray[j].sInformation      = stickers[j].sInformation;
+                                    currentRi.stickerArray[j].sPanelAddress      = stickers[j].sPanelAddress;
+
+
 
                                     currentRi.stickerArray[j].sSubType          = stickers[j].sSubType;
                                     currentRi.stickerArray[j].sDescription      = stickers[j].sDescription;
@@ -502,6 +512,11 @@ public class ACityAPIDev : MonoBehaviour
                         stickers[j].sPath        = currentRi.stickerArray[j].sPath;
                         stickers[j].sText        = currentRi.stickerArray[j].sText;
                         stickers[j].sType        = currentRi.stickerArray[j].sType;
+
+                        stickers[j].sDepartments        = currentRi.stickerArray[j].sDepartments;
+                        stickers[j].sInformation        = currentRi.stickerArray[j].sInformation;
+                        stickers[j].sPanelAddress        = currentRi.stickerArray[j].sPanelAddress;
+
                         stickers[j].sSubType     = currentRi.stickerArray[j].sSubType;
                         stickers[j].sDescription = currentRi.stickerArray[j].sDescription;
                         stickers[j].sId          = currentRi.stickerArray[j].sId;
@@ -766,6 +781,10 @@ public class ACityAPIDev : MonoBehaviour
                             stickers[j].sPath              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["path"];
                             stickers[j].sText              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["sticker_text"];
                             stickers[j].sType              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["sticker_type"];
+                            stickers[j].sDepartments              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["departments"];
+                            stickers[j].sInformation              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["information"];
+                            stickers[j].sPanelAddress              = "" + jsonParse["scrs"][j]["content"]["custom_data"]["address"];
+
                             stickers[j].sSubType           = "" + jsonParse["scrs"][j]["content"]["custom_data"]["sticker_subtype"];
                             stickers[j].sDescription       = "" + jsonParse["scrs"][j]["content"]["custom_data"]["description"];
                             stickers[j].SModel_scale       = "" + jsonParse["scrs"][j]["content"]["custom_data"]["model_scale"];
@@ -815,6 +834,10 @@ public class ACityAPIDev : MonoBehaviour
                             currentRi.stickerArray[j].subType           = stickers[j].subType;
                             currentRi.stickerArray[j].type              = stickers[j].type;
                             currentRi.stickerArray[j].bundleName        = stickers[j].bundleName;
+                            currentRi.stickerArray[j].sDepartments        = stickers[j].sDepartments;
+                            currentRi.stickerArray[j].sInformation        = stickers[j].sInformation;
+                            currentRi.stickerArray[j].sPanelAddress        = stickers[j].sPanelAddress;
+
                         }
                         recoList.Add(currentRi);
                         newCam.transform.position    = cameraPositionInLocalization;
@@ -853,6 +876,10 @@ public class ACityAPIDev : MonoBehaviour
                         stickers[j].sDescription = currentRi.stickerArray[j].sDescription;
                         stickers[j].sId          = currentRi.stickerArray[j].sId;
                         stickers[j].sImage       = currentRi.stickerArray[j].sImage;
+                        stickers[j].sDepartments       = currentRi.stickerArray[j].sDepartments;
+                        stickers[j].sInformation       = currentRi.stickerArray[j].sInformation;
+                        stickers[j].sPanelAddress       = currentRi.stickerArray[j].sPanelAddress;
+
 
                         currentRi.stickerArray[j].sAddress = stickers[j].sAddress;
                         currentRi.stickerArray[j].sRating = stickers[j].sRating;
