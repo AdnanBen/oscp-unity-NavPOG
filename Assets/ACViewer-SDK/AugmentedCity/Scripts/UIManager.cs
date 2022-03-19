@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     bool sliderOn;
 
     public GameObject stickerPanel;
+    public GameObject additionalInfoPanel;
     public Text stickerText;
     public Text stickerType;
     public Text stickerDepartments;
@@ -143,6 +144,7 @@ public class UIManager : MonoBehaviour
             stickerType.text = sInfo.sType;
             stickerDepartments.text = sInfo.sDepartments;
             stickerPanelAddress.text = sInfo.sPanelAddress;
+            stickerInformation.text = sInfo.sInformation;
 
 
             if (stickerDeActivate != null)
@@ -164,6 +166,7 @@ public class UIManager : MonoBehaviour
     public void DownSwipe()
     {
         stickerPanel.SetActive(false);
+        additionalInfoPanel.SetActive(false);
         if (stickerDeActivate != null)
             stickerDeActivate(false);
     }
