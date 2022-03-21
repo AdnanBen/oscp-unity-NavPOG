@@ -117,7 +117,7 @@ public class GetPlaceHoldersDev : MonoBehaviour
     }
 
 
-    void showPlaceHolders(string id, Transform zeroP, ACityAPIDev.StickerInfo[] stickers)
+    async void showPlaceHolders(string id, Transform zeroP, ACityAPIDev.StickerInfo[] stickers)
     {
         if (id != null)
         {
@@ -190,7 +190,8 @@ public class GetPlaceHoldersDev : MonoBehaviour
                         string inputUserID = lm.userIDInput;
                         string[] userIDs = stickerUserIDData.Split(',');
 
-                        if (stickers[j] != null && !(System.Array.IndexOf(userIDs,inputUserID) == -1 && userIDs[0] != "ALL"))                        // if the sticker object is not failed
+                        if (stickers[j] != null && !(System.Array.IndexOf(userIDs,inputUserID) == -1 && (userIDs[0] != "ALL" || System.String.IsNullOrEmpty(userIDs[0]))))   // if permitted users is ALL or not set                     
+                        // if the sticker object is not failed
                         {
                             bool isVideoSticker =
                                 stickers[j].sPath != null &&
