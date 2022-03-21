@@ -151,6 +151,13 @@ public class GetPlaceHoldersDev : MonoBehaviour
 
                     for (int j = 0; j < stickers.Length; j++)
                     {
+                        
+                        string stickerUserIDData = stickers[j].permittedUserIDs;
+                        string inputUserID = lm.userIDInput;
+                        string[] userIDs = stickerUserIDData.Split(',');
+                        if (System.Array.IndexOf(userIDs,inputUserID) == -1 && (userIDs[0] != "ALL" && !System.String.IsNullOrEmpty(userIDs[0]))){
+                            continue;
+                        }
                         // Placeholders
                         for (int i = 0; i < 4; i++)
                         {
@@ -186,11 +193,8 @@ public class GetPlaceHoldersDev : MonoBehaviour
                         vp.transform.localScale = (vp.transform.localScale * Vector3.Magnitude(stickers[j].positions[0] - stickers[j].positions[1]));
                         videoDemos.Add(vp);
 
-                        string stickerUserIDData = stickers[j].permittedUserIDs;
-                        string inputUserID = lm.userIDInput;
-                        string[] userIDs = stickerUserIDData.Split(',');
 
-                        if (stickers[j] != null && !(System.Array.IndexOf(userIDs,inputUserID) == -1 && (userIDs[0] != "ALL" || System.String.IsNullOrEmpty(userIDs[0]))))   // if permitted users is ALL or not set                     
+                        if (stickers[j] != null)   // if permitted users is ALL or not set                     
                         // if the sticker object is not failed
                         {
                             bool isVideoSticker =
