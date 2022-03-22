@@ -41,6 +41,7 @@ public class GetPlaceHoldersDev : MonoBehaviour
     float timerRelocation;
     float animationTime = 2f;
     UIManager uim;
+    LoginManager lm;
     GameObject activeReco, modelToServer;
 
     bool ARStarted, relocationCompleted, toShowPlaceHolders, videoDemosTurn, toShowStickers;
@@ -56,6 +57,7 @@ public class GetPlaceHoldersDev : MonoBehaviour
         relocationCompleted = true;
         toShowStickers = true;
         uim = this.GetComponent<UIManager>();
+        lm = this.GetComponent<LoginManager>();
         acapi.prepareSession(preparationCheck); //FixMe: in aco3d it's off
     }
 
@@ -115,7 +117,7 @@ public class GetPlaceHoldersDev : MonoBehaviour
     }
 
 
-    void showPlaceHolders(string id, Transform zeroP, ACityAPIDev.StickerInfo[] stickers)
+    async void showPlaceHolders(string id, Transform zeroP, ACityAPIDev.StickerInfo[] stickers)
     {
         if (id != null)
         {
@@ -149,6 +151,14 @@ public class GetPlaceHoldersDev : MonoBehaviour
 
                     for (int j = 0; j < stickers.Length; j++)
                     {
+
+                        string stickerUserIDData = stickers[j].permittedUserIDs;
+                        string inputUserID = lm.userIDInput;
+                        string[] userIDs = stickerUserIDData.Split(',');
+                        if (System.Array.IndexOf(userIDs, inputUserID) == -1 && (userIDs[0] != "ALL" && !System.String.IsNullOrEmpty(userIDs[0])))
+                        {
+                            continue;
+                        }
                         // Placeholders
                         for (int i = 0; i < 4; i++)
                         {
@@ -184,7 +194,9 @@ public class GetPlaceHoldersDev : MonoBehaviour
                         vp.transform.localScale = (vp.transform.localScale * Vector3.Magnitude(stickers[j].positions[0] - stickers[j].positions[1]));
                         videoDemos.Add(vp);
 
-                        if (stickers[j] != null)                        // if the sticker object is not failed
+
+                        if (stickers[j] != null)   // if permitted users is ALL or not set                     
+                        // if the sticker object is not failed
                         {
                             bool isVideoSticker =
                                 stickers[j].sPath != null &&

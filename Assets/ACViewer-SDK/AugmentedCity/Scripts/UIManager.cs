@@ -31,8 +31,13 @@ public class UIManager : MonoBehaviour
     bool sliderOn;
 
     public GameObject stickerPanel;
+    public GameObject additionalInfoPanel;
     public Text stickerText;
     public Text stickerType;
+    public Text stickerDepartments;
+    public Text stickerInformation;
+    public Text stickerPanelAddress;
+
     int gloc, bloc;
 
     ACityAPIDev.StickerInfo stickerInfoForPanel;
@@ -137,6 +142,11 @@ public class UIManager : MonoBehaviour
             stickerPanel.SetActive(true);
             stickerText.text = sInfo.sText;
             stickerType.text = sInfo.sType;
+            stickerDepartments.text = sInfo.sDepartments;
+            stickerPanelAddress.text = sInfo.sPanelAddress;
+            stickerInformation.text = sInfo.sInformation;
+
+
             if (stickerDeActivate != null)
             {
                 stickerDeActivate(false);
@@ -148,7 +158,8 @@ public class UIManager : MonoBehaviour
 
     public void GoToStickerSite()
     {
-        if (stickerInfoForPanel.sPath.Length > 0) {
+        if (stickerInfoForPanel.sPath.Length > 0)
+        {
             Application.OpenURL(stickerInfoForPanel.sPath);
         }
     }
@@ -156,6 +167,7 @@ public class UIManager : MonoBehaviour
     public void DownSwipe()
     {
         stickerPanel.SetActive(false);
+        additionalInfoPanel.SetActive(false);
         if (stickerDeActivate != null)
             stickerDeActivate(false);
     }
@@ -179,7 +191,7 @@ public class UIManager : MonoBehaviour
     }
     public void setMapButtons(bool act)
     {
-        
+
     }
     public void setMenuButtons(bool act)
     {
@@ -206,12 +218,13 @@ public class UIManager : MonoBehaviour
     {
         GameObject go = new GameObject("temp");
         go.transform.position = aRcamera.transform.position;
-        go.transform.Translate(aRcamera.transform.forward*3);
+        go.transform.Translate(aRcamera.transform.forward * 3);
         GameObject newObj = Instantiate(newObject);
         newObj.transform.position = go.transform.position;
     }
 
-    public void AddToReco() {
+    public void AddToReco()
+    {
     }
 
     public void setDebugPose(float xc, float yc, float zc, float xo, float yo, float zo, float wo, string recoId)
@@ -265,8 +278,8 @@ public class UIManager : MonoBehaviour
         if (oscp)
         {
             if (!ecef && !geo) debugPose[16].text = "OSCP local";
-            if (ecef)          debugPose[16].text = "ECEF";
-            if (geo)           debugPose[16].text = "Geopose";
+            if (ecef) debugPose[16].text = "ECEF";
+            if (geo) debugPose[16].text = "Geopose";
         }
         else debugPose[16].text = "Local";
     }
@@ -285,10 +298,10 @@ public class UIManager : MonoBehaviour
 
     public void Orient()
     {
-        if (Input.deviceOrientation == DeviceOrientation.LandscapeLeft)      { Debug.Log("ScreenOrientation.LandscapeLeft");      }
-        if (Input.deviceOrientation == DeviceOrientation.Portrait)           { Debug.Log("ScreenOrientation.Portrait");           }
+        if (Input.deviceOrientation == DeviceOrientation.LandscapeLeft) { Debug.Log("ScreenOrientation.LandscapeLeft"); }
+        if (Input.deviceOrientation == DeviceOrientation.Portrait) { Debug.Log("ScreenOrientation.Portrait"); }
         if (Input.deviceOrientation == DeviceOrientation.PortraitUpsideDown) { Debug.Log("ScreenOrientation.PortraitUpsideDown"); }
-        if (Input.deviceOrientation == DeviceOrientation.LandscapeRight)     { Debug.Log("ScreenOrientation.LandscapeRight");     }
+        if (Input.deviceOrientation == DeviceOrientation.LandscapeRight) { Debug.Log("ScreenOrientation.LandscapeRight"); }
     }
 
     public void DebugSet(bool onoff)
