@@ -194,7 +194,6 @@ public class NavigationManager : MonoBehaviour
 
         for (int i = 0; i < info.Count; i++)
         {
-            if (info[i]["placeholder"]["projections"].Count != 0)
             {
                 locationEntry newEntry = new locationEntry();
                 newEntry.name = "default";
